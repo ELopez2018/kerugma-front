@@ -1,0 +1,268 @@
+<div
+  class="w-full mx-auto p-4 bg-green-900 text-white rounded-2xl shadow-lg"
+  [ngClass]="{ hidden: step == 2 }"
+>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    class="grid gap-2 grid-cols-1 md:grid-cols-3"
+  >
+    <!-- Título -->
+    <div>
+      <label class="block text-sm font-medium">Título</label>
+      <input formControlName="title" type="text" class="input" />
+      <small
+        *ngIf="f['title'].touched && f['title'].invalid"
+        class="text-red-400"
+      >
+        Campo requerido (máx. 50 caracteres)
+      </small>
+    </div>
+
+    <!-- Departamento -->
+    <div>
+      <label class="block text-sm font-medium">Departamento</label>
+      <input formControlName="state" type="text" class="input" />
+      <small
+        *ngIf="f['state'].touched && f['state'].invalid"
+        class="text-red-400"
+        >Campo requerido</small
+      >
+    </div>
+
+    <!-- Municipio -->
+    <div>
+      <label class="block text-sm font-medium">Municipio</label>
+      <input formControlName="municipality" type="text" class="input" />
+      <small
+        *ngIf="f['municipality'].touched && f['municipality'].invalid"
+        class="text-red-400"
+        >Campo requerido</small
+      >
+    </div>
+
+    <!-- Ciudad -->
+    <div>
+      <label class="block text-sm font-medium">Ciudad</label>
+      <input formControlName="city" type="text" class="input" />
+      <small *ngIf="f['city'].touched && f['city'].invalid" class="text-red-400"
+        >Campo requerido</small
+      >
+    </div>
+
+    <!-- Barrio -->
+    <div class="md:col-span-1">
+      <label class="block text-sm font-medium">Barrio</label>
+      <input formControlName="neighborhood" type="text" class="input" />
+      <small
+        *ngIf="f['neighborhood'].touched && f['neighborhood'].invalid"
+        class="text-red-400"
+        >Campo requerido</small
+      >
+    </div>
+
+    <!-- Dirección -->
+    <div class="md:col-span-1">
+      <label class="block text-sm font-medium">Dirección</label>
+      <textarea
+        formControlName="address"
+        rows="1"
+        class="input resize-none"
+      ></textarea>
+      <small
+        *ngIf="f['address'].touched && f['address'].invalid"
+        class="text-red-400"
+      >
+        Campo requerido (máx. 100 caracteres)
+      </small>
+    </div>
+
+    <!-- Referencia -->
+    <div class="md:col-span-2">
+      <label class="block text-sm font-medium">Punto de Referencia</label>
+      <textarea
+        formControlName="benchmark"
+        rows="1"
+        class="input resize-none"
+      ></textarea>
+      <small
+        *ngIf="f['benchmark'].touched && f['benchmark'].invalid"
+        class="text-red-400"
+      >
+        Campo requerido (máx. 100 caracteres)
+      </small>
+    </div>
+
+    <!-- Estado del punto -->
+    <div>
+      <label class="block text-sm font-medium">Estado del punto</label>
+      <select formControlName="status" class="input">
+        <option value="actived">Activo</option>
+        <option value="deactivated">Inactivo</option>
+      </select>
+      <small
+        *ngIf="f['status'].touched && f['status'].invalid"
+        class="text-red-400"
+        >Campo requerido</small
+      >
+    </div>
+
+    <!-- URL Imagen -->
+    <div>
+      <label class="block text-sm font-medium">URL Imagen</label>
+      <input formControlName="pictures" type="url" class="input" />
+      <small
+        *ngIf="f['pictures'].touched && f['pictures'].invalid"
+        class="text-red-400"
+      >
+        Debe ser una URL válida de imagen (jpg, png, gif, etc.)
+      </small>
+    </div>
+
+    <!-- Latitud -->
+    <div>
+      <label class="block text-sm font-medium">Latitud</label>
+      <input formControlName="latitud" type="number" step="any" class="input" />
+      <small
+        *ngIf="f['latitud'].touched && f['latitud'].invalid"
+        class="text-red-400"
+      >
+        Valor entre -90 y 90
+      </small>
+    </div>
+
+    <!-- Longitud -->
+    <div>
+      <label class="block text-sm font-medium">Longitud</label>
+      <input
+        formControlName="longitud"
+        type="number"
+        step="any"
+        class="input"
+      />
+      <small
+        *ngIf="f['longitud'].touched && f['longitud'].invalid"
+        class="text-red-400"
+      >
+        Valor entre -180 y 180
+      </small>
+    </div>
+
+    <!-- Latitud -->
+
+    <div>
+      <label class="block text-sm font-medium">Disponible desde</label>
+      <input
+        type="time"
+        class="input"
+        name="from"
+        [(ngModel)]="hFrom"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+
+    <!-- Longitud -->
+    <div>
+      <label class="block text-sm font-medium">Disponible hasta</label>
+      <input
+        type="time"
+        class="input"
+        name="to"
+        [(ngModel)]="hTo"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Intervalo</label>
+      <input
+        type="number"
+        name="interval"
+        [(ngModel)]="interval"
+        class="input"
+        (blur)="generateHour()"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+
+    <!-- Botón -->
+    <div class="md:col-span-3 flex justify-end">
+      <button
+        type="submit"
+        class="bg-green-700 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition duration-300"
+      >
+        Siguiente
+      </button>
+    </div>
+  </form>
+</div>
+
+<div
+  class="w-full mx-auto p-4 bg-green-900 text-white rounded-2xl shadow-lg"
+  [ngClass]="{ hidden: step == 1 }"
+>
+  <div class="grid gap-2 grid-cols-1 md:grid-cols-2">
+    <h2 class="md:col-span-2 text-center py-2" > HORARIO Y CARRITOS </h2>
+    <div class="md:col-span-1 flex justify-center">
+      <p-table [value]="schedule"  [scrollable]="true" scrollHeight="50vh"  [tableStyle]="{ 'min-width': '20rem' }">
+        <ng-template #header>
+          <tr>
+            <th>Horarios</th>
+            <th>Disponible</th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-item>
+          <tr>
+            <td>{{ item.schedule }}</td>
+            <td>
+              <p-togglebutton
+                [(ngModel)]="item.enable"
+                onLabel="Disponible"
+                offLabel="Bloqueado"
+                offIcon="pi pi-check"
+                [onIcon]="'pi pi-lock-open'"
+                offIcon="pi pi-lock"
+                styleClass="w-36"
+                ariaLabel="Do you confirm"
+              />
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+        <div class="md:col-span-1 flex justify-center">
+      <p-table [value]="[]" scrollHeight="50vh" [tableStyle]="{ 'min-width': '20rem' }">
+        <ng-template #header>
+          <tr>
+            <th>Carritos</th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-item>
+          <tr>
+            <td>{{ item }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div class="md:col-span-1 flex justify-start">
+      <button
+        type="submit"
+        class="bg-green-700 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition duration-300"
+        (click)="step = 1"
+      >
+        Regresar
+      </button>
+    </div>
+
+    <div class="md:col-span-1 flex justify-end">
+      <button
+        type="button"
+        class="bg-green-700 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition duration-300"
+        (click)="save()"
+      >
+        Guardar
+      </button>
+    </div>
+  </div>
+</div>

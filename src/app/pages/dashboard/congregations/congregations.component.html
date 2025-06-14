@@ -1,0 +1,34 @@
+<h1 class="text-center text-2xl py-4 text-shadow-2xs">CONGREGACIONES</h1>
+<div>
+  <app-congregations-table
+  [congregations]="congregations"
+  (edit)="onEdit($event)"
+  (delete)="onDelete($event)"
+  ></app-congregations-table>
+</div>
+<app-button-add (onClick)="visible = true"></app-button-add>
+<!-- MODAL -->
+<p-dialog
+  maskStyleClass="backdrop-blur-sm"
+  [(visible)]="visible"
+  [modal]="true"
+  styleClass="!border-1 !bg-transparent"
+  [breakpoints]="{ '1199px': '50vw', '575px': '90vw' }"
+  [style]="{ width: '25rem' }"
+  (onHide)="getAllCongregations()"
+>
+  <app-congregations-form-add-edit></app-congregations-form-add-edit>
+</p-dialog>
+<p-dialog
+  maskStyleClass="backdrop-blur-sm"
+  [(visible)]="visibleDelete"
+  [modal]="true"
+  styleClass="!border-1 !bg-transparent"
+  [breakpoints]="{ '1199px': '50vw', '575px': '90vw' }"
+  [style]="{ width: '25rem' }"
+  (onHide)="getAllCongregations()"
+>
+
+<div> ¿ Desea eliminar la Congregacion ? </div>
+
+</p-dialog>

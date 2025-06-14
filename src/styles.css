@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@import "primeicons/primeicons.css";
+
+.p-tree {
+  background-color: #0d542b !important;
+  /* Color verde oscuro */
+  color: #ffffff !important;
+}
+
+.p-tree .p-tree-node-label,
+.p-tree .p-tree-node-toggle-button {
+  color: #ffffff !important;
+  font-size: 25px;
+}
+
+.p-tree .p-tree-node-content:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid #ffffff !important;
+  border-radius: 4px;
+}
+
+.p-tree-node-icon {
+  color: rgb(255, 255, 255) !important;
+  font-size: 25px !important;
+  width: 35px;
+}
+.pi.pi-spin {
+  animation: pi-spin 0.3s linear infinite !important; /* más rápido que el default (~1s) */
+}
+
+@keyframes pi-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.shadow_1 {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.input {
+  @apply mt-1 w-full px-4 py-2 rounded-lg bg-green-800 text-white placeholder-green-300 border border-green-700 focus:outline-none focus:ring-2 focus:ring-green-500;
+}

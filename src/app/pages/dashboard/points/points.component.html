@@ -1,0 +1,27 @@
+<h1 class="text-center text-xl mb-4 md:text-4xl font-bold uppercase">
+  {{ title }}
+</h1>
+
+<div class="md:flex md:space-x-10" *ngIf="!pointSelected">
+  <app-points-card
+    *ngFor="let item of allPoints"
+    [point]="item"
+    [showButton]="false"
+    (onPointSelect)="onPointSelected($event)"
+  ></app-points-card>
+</div>
+
+
+<app-button-add (onClick)="visible = true"></app-button-add>
+
+<!-- MODAL -->
+<p-dialog
+  maskStyleClass="backdrop-blur-sm"
+  [(visible)]="visible"
+  [modal]="true"
+  styleClass="!border-1 !bg-transparent"
+  [breakpoints]="{ '1199px': '90vw', '575px': '90vw' }"
+  [style]="{ width: '60rem' }"
+>
+  <app-point-add-edit></app-point-add-edit>
+</p-dialog>

@@ -1,0 +1,31 @@
+<div
+  class="max-w-sm mx-auto bg-white rounded-2xl shadow-md overflow-hidden m-5 md:w-64 hover:cursor-pointer"
+  *ngIf="point"
+  (click)="onSelected(point)"
+>
+  <!-- Título -->
+  <div class="p-4">
+    <h2 class="text-xl font-semibold text-gray-800 text-center">
+      {{ point.title }}
+    </h2>
+  </div>
+
+  <!-- Imagen -->
+  <div class="w-full h-auto overflow-hidden">
+    <img
+      src="{{ parceImage(point.pictures) }}"
+      alt="Imagen de turno"
+      class="w-full h-full object-cover"
+    />
+  </div>
+
+  <!-- Footer con botón -->
+  <div class="p-4 flex justify-center" *ngIf="showButton">
+    <button
+      (click)="onSelected(point)"
+      class="bg-green-800 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-sm transition duration-200"
+    >
+      {{ textButton }}
+    </button>
+  </div>
+</div>

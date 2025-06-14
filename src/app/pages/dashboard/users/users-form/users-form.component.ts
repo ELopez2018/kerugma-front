@@ -1,0 +1,108 @@
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { DataService } from '../../../../core/services/data/data.service';
+import { Congregation } from '../../congregations/interfaces/congregation.interface';
+import { CongregationsApiService } from '../../congregations/services/api/congregations.service';
+import { Designation } from '../../designation/interfaces/designation.interface';
+import { DesignationApiService } from '../../designation/services/api/designation-api.service';
+import { UsersApiService } from '../services/api/users-api.service';
+import { CommonModule } from '@angular/common';
+import { LocalStorageEnums } from '../../../../core/enums/localstorage.enum';
+import { User } from '../interfaces/user.interface';
+import { UsersDataService } from '../services/data/users-data.service';
+
+@Component({
+  selector: 'app-users-form',
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './users-form.component.html',
+  styleUrl: './users-form.component.css',
+  standalone: true
+})
+export class UsersFormComponent implements OnInit {
+  userForm!: FormGroup;
+  congregations: Congregation[] = [];
+  designations: Designation[] = []
+  user!: User;
+  constructor(
+    private fb: FormBuilder,
+    private congregationsApiService: CongregationsApiService,
+    private designationApiService: DesignationApiService,
+    private usersApiService: UsersApiService,
+    private dataService: DataService,
+    private usersDataService: UsersDataService
+  ) { }
+
+  ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem(LocalStorageEnums.USER) || "")
+    this.initializeForm()
+    this.congregationsApiService.getAllCongregations$().subscribe(data => {
+      this.congregations = data
+    })
+    this.designationApiService.getAllDesignations$().subscribe(data => {
+      this.designations = data
+    })
+    this.user = JSON.parse(localStorage.getItem(LocalStorageEnums.USER) || "")
+    this.subcriptions()
+  }
+
+  subcriptions(){
+    this.usersDataService.getUser$().subscribe(data=>{
+      this.userForm.reset(data)
+    })
+  }
+
+  initializeForm() {
+    this.userForm = this.fb.group({
+      fullName: [null],
+      image: [''],
+      firstName: [null, Validators.required],
+      secondName: [''],
+      lastName: [null, Validators.required],
+      surname: [''],
+      birthdate: ['', Validators.required],
+      gender: ['', Validators.required],
+      documentNumber: ['', [Validators.pattern(/^\d+$/)]],
+      documentType: [''],
+      cellPhone: ['', [Validators.required, Validators.pattern(/^\+?\d{7,15}$/)]],
+      phone: [''],
+      approved: [null],
+      email: ['', [Validators.required, Validators.email]],
+      congregation: [null, Validators.required],
+      designationIds: [[]],
+      createBy: [this.user.congregation],
+    });
+  }
+
+  onSubmit() {
+    if (this.userForm.valid) {
+      const body = this.userForm.getRawValue()
+      body.designations = this.getDescriptionsByIds(this.designations, body.designationIds)
+      body.createBy = this.user.congregation
+      this.usersApiService.create$(body).subscribe(data => {
+        const message = { severity: 'contrast', summary: 'Registro', detail: 'Publicador registrado', life: 3000 }
+        this.dataService.addToas$(message)
+        this.userForm.reset()
+      }, error => {
+        const message = { severity: 'warn', summary: 'Registro', detail: error.error.message, life: 3000 }
+        this.dataService.addToas$(message)
+      })
+    } else {
+      this.userForm.markAllAsTouched();
+    }
+  }
+  onDesignationChange(event: any) {
+    const id = +event.target.value;
+    const checked = event.target.checked;
+    const current = this.userForm.get('designationIds')?.value || [];
+    if (checked) {
+      this.userForm.patchValue({ designationIds: [...current, id] });
+    } else {
+      this.userForm.patchValue({ designationIds: current.filter((x: number) => x !== id) });
+    }
+  }
+  getDescriptionsByIds(roles: any[], selectedIds: number[]): string[] {
+    return roles
+      .filter(role => selectedIds.includes(role.id))
+      .map(role => role);
+  }
+}
