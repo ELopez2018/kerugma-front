@@ -5,6 +5,7 @@ import { DataService } from '../../../../core/services/data/data.service';
 import { UsersApiService } from '../services/api/users-api.service';
 import { UsersDataService } from '../services/data/users-data.service';
 import { CreateCredential, User } from '../interfaces/user.interface';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-users-credentials',
@@ -16,17 +17,18 @@ import { CreateCredential, User } from '../interfaces/user.interface';
 export class UsersCredentialsComponent implements OnInit {
   credentialForm!: FormGroup;
   user!: User;
+  error!: string | null;
   constructor(
     private fb: FormBuilder,
     private usersApiService: UsersApiService,
     private dataService: DataService,
-    private usersDataService: UsersDataService
+    private usersDataService: UsersDataService,
   ) { }
 
   ngOnInit(): void {
     this.credentialForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      username: [null, Validators.required],
+      password: [null, [Validators.required, Validators.minLength(6)]],
       locked: [false],
       disabled: [false],
     });
@@ -39,11 +41,17 @@ export class UsersCredentialsComponent implements OnInit {
 
 
   onSubmit(): void {
+    this.error= null
     if (this.credentialForm.valid) {
       const body: CreateCredential = {
         ... this.credentialForm.value,
         user: this.user
       }
+      this.usersApiService.createCredentials$(body).subscribe
+      (data=>{console.log(data)}, error=>{
+        this.error = error.error.error
+        console.error(error.error.error);
+      })
       // Aquí se procesa la información del formulario
       console.log(body);
     } else {

@@ -7,7 +7,6 @@ export interface Stand {
   status: string;
   observations: string;
   poster: string;
-  enable: null;
   congregation: Congregation;
   inventory: Inventory;
   point: Point

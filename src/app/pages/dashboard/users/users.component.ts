@@ -26,10 +26,14 @@ export class UsersComponent implements OnInit {
     private usersDataService: UsersDataService
   ) { }
   ngOnInit(): void {
+    this.subcriptions()
     this.getAllUsers()
   }
-  subcriptions(){
-
+  subcriptions() {
+    this.usersDataService.getUser$().subscribe(data => {
+      this.getAllUsers()
+    }
+    )
   }
   getAllUsers() {
     this.usersApiService.getAllUsers$().subscribe(data => {
@@ -37,18 +41,19 @@ export class UsersComponent implements OnInit {
     })
   }
   updateTable() {
-    console.log("onHide");
     this.getAllUsers()
   }
-  onEdit(user: User){
+  onEdit(user: User) {
     this.usersDataService.setUser(user)
     this.visible = true;
   }
-
-  onCredentials(user: User){
-    console.log("user credentials");
+  onCredentials(user: User) {
     this.usersDataService.setUser(user)
-     this.visibleCredentials = true;
+    this.visibleCredentials = true;
   }
+  onDelete(user: User) {
+  }
+  toApprove(user: User) { }
+  toDisapprove(user: User) { }
 }
 

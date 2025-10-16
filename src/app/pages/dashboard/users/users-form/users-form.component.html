@@ -1,4 +1,4 @@
-<h1 class="text-center text-2xl py-4 text-shadow-2xs">REGISTRO DE  PUBLICADORES</h1>
+<h1 class="text-center text-2xl py-4 text-shadow-2xs text-white">REGISTRO DE  PUBLICADORES</h1>
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="p-6 bg-green-900 rounded-xl text-green-100 space-y-4" *ngIf="user">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <!-- Document Type -->
@@ -99,7 +99,7 @@
       <label class="block mb-1">Designaciones</label>
       <div class="flex flex-wrap gap-4">
         <label *ngFor="let d of designations" class="flex items-center gap-2">
-          <input type="checkbox" [value]="d.id" (change)="onDesignationChange($event)" [checked]="userForm.value.designationIds.includes(d.id)" />
+          <input type="checkbox" [value]="d.id" (change)="onDesignationChange($event)" [checked]="isDesignationChecked(d.id)" />
           {{ d.description }}
         </label>
       </div>

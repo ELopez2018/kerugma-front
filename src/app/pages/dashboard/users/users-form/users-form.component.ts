@@ -45,8 +45,8 @@ export class UsersFormComponent implements OnInit {
     this.subcriptions()
   }
 
-  subcriptions(){
-    this.usersDataService.getUser$().subscribe(data=>{
+  subcriptions() {
+    this.usersDataService.getUser$().subscribe(data => {
       this.userForm.reset(data)
     })
   }
@@ -68,20 +68,29 @@ export class UsersFormComponent implements OnInit {
       approved: [null],
       email: ['', [Validators.required, Validators.email]],
       congregation: [null, Validators.required],
-      designationIds: [[]],
+      designations: [[]],
       createBy: [this.user.congregation],
+      id: [null]
     });
   }
 
   onSubmit() {
     if (this.userForm.valid) {
       const body = this.userForm.getRawValue()
-      body.designations = this.getDescriptionsByIds(this.designations, body.designationIds)
       body.createBy = this.user.congregation
       this.usersApiService.create$(body).subscribe(data => {
-        const message = { severity: 'contrast', summary: 'Registro', detail: 'Publicador registrado', life: 3000 }
-        this.dataService.addToas$(message)
-        this.userForm.reset()
+        if (body.id) {
+          const message = { severity: 'contrast', summary: 'Actualización', detail: 'Publicador actualizado', life: 3000 }
+          this.dataService.addToas$(message)
+          this.usersDataService.setUser(data)
+          console.log(data);
+        } else {
+          const message = { severity: 'contrast', summary: 'Registro', detail: 'Publicador registrado', life: 3000 }
+          this.dataService.addToas$(message)
+          this.userForm.reset()
+        }
+
+        console.log(data);
       }, error => {
         const message = { severity: 'warn', summary: 'Registro', detail: error.error.message, life: 3000 }
         this.dataService.addToas$(message)
@@ -90,19 +99,28 @@ export class UsersFormComponent implements OnInit {
       this.userForm.markAllAsTouched();
     }
   }
-  onDesignationChange(event: any) {
-    const id = +event.target.value;
-    const checked = event.target.checked;
-    const current = this.userForm.get('designationIds')?.value || [];
-    if (checked) {
-      this.userForm.patchValue({ designationIds: [...current, id] });
+  onDesignationChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const id = +input.value;
+    const designation = this.designations.find(d => d.id === id);
+
+    if (!designation) return;
+
+    const current = this.userForm.value.designations ?? [];
+
+    if (input.checked) {
+      this.userForm.patchValue({
+        designations: [...current, designation],
+      });
     } else {
-      this.userForm.patchValue({ designationIds: current.filter((x: number) => x !== id) });
+      this.userForm.patchValue({
+        designations: current.filter((d: any) => d.id !== id),
+      });
     }
   }
-  getDescriptionsByIds(roles: any[], selectedIds: number[]): string[] {
-    return roles
-      .filter(role => selectedIds.includes(role.id))
-      .map(role => role);
+
+  isDesignationChecked(id: number): boolean {
+    const designations = this.userForm.value.designations || [];
+    return designations.some((d: any) => d.id === id);
   }
 }

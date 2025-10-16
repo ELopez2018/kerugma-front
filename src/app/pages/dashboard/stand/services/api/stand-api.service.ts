@@ -19,4 +19,9 @@ export class StandApiService {
   public create$(body: Stand) {
     return this.httpClient.post<Stand>(this.apiUrl, body)
   }
+
+  public assign$(body: Stand) {
+    const url = `${this.apiUrl}/assign/${body.id}`
+    return this.httpClient.put<Stand>(url, body)
+  }
 }

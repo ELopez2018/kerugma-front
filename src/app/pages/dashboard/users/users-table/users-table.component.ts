@@ -11,18 +11,27 @@ import { CommonModule } from '@angular/common';
 export class UsersTableComponent {
   @Input() users: User[] = [];
   @Output() edit = new EventEmitter<User>();
-  @Output() delete = new EventEmitter<number>();
+  @Output() delete = new EventEmitter<User>();
   @Output() onMakeCredentials = new EventEmitter<User>();
+  @Output() onApprove = new EventEmitter<User>();
+  @Output() onDisapprove = new EventEmitter<User>();
 
   onEdit(user: User) {
     this.edit.emit(user);
   }
 
-  onDelete(id: number) {
-    this.delete.emit(id);
+  onDelete(user: User) {
+    this.delete.emit(user);
   }
 
-  onCredentials(user: User){
-   this.onMakeCredentials.emit(user);
+  onCredentials(user: User) {
+    this.onMakeCredentials.emit(user);
+  }
+
+  onToApprove(user: User) {
+    this.onApprove.emit(user);
+  }
+  onToDisapprove(user: User) {
+    this.onDisapprove.emit(user);
   }
 }

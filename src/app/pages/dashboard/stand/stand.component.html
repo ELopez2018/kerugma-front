@@ -15,6 +15,7 @@
         <button
           class="bg-amber-600 hover:bg-amber-500 text-white text-xs sm:text-sm font-semibold py-1 px-2 rounded"
           title="Asignar a un punto"
+          (click)=" setPoint(item)"
         >
           <i class="pi pi-map-marker"></i>
         </button>
@@ -46,6 +47,18 @@
   styleClass="!border-1 !bg-transparent"
   [breakpoints]="{ '1199px': '90vw', '575px': '90vw' }"
   [style]="{ width: '60rem' }"
+   (onHide)="getAllStands()"
 >
   <app-stand-add></app-stand-add>
+</p-dialog>
+<p-dialog
+  maskStyleClass="backdrop-blur-sm"
+  [(visible)]="visibleSetPoint"
+  [modal]="true"
+  styleClass="!border-1 !bg-transparent"
+  [breakpoints]="{ '1199px': '90vw', '575px': '90vw' }"
+  [style]="{ width: '60rem' }"
+   (onHide)="getAllStands()"
+>
+  <app-stand-set-point [stand]="standSelected"></app-stand-set-point>
 </p-dialog>

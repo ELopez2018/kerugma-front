@@ -6,10 +6,11 @@ import { ButtonAddComponent } from '../../../shared/button-add/button-add.compon
 import { StandAddComponent } from './components/stand-add/stand-add.component';
 import { Dialog } from 'primeng/dialog';
 import { StandApiService } from './services/api/stand-api.service';
+import { StandSetPointComponent } from './components/stand-set-point/stand-set-point.component';
 
 @Component({
   selector: 'app-stand',
-  imports: [CommonModule, ButtonAddComponent, StandAddComponent, Dialog],
+  imports: [CommonModule, ButtonAddComponent, StandAddComponent, Dialog, StandSetPointComponent],
   templateUrl: './stand.component.html',
   styleUrl: './stand.component.css',
   standalone: true,
@@ -24,7 +25,9 @@ export class StandComponent implements OnInit {
 
   standForm!: FormGroup;
   visible = false;
+  visibleSetPoint = false;
   stands: Stand[]=[];
+  standSelected!: Stand;
   constructor(
     private fb: FormBuilder,
     private standApiService: StandApiService
@@ -47,7 +50,6 @@ export class StandComponent implements OnInit {
       status: [this.initialData?.status || '', Validators.required],
       observations: [this.initialData?.observations || ''],
       poster: [this.initialData?.poster || ''],
-      enable: [this.initialData?.enable ?? true],
       congregation: [this.initialData?.congregation || '', Validators.required],
       point: [this.initialData?.point || '']
     });
@@ -59,5 +61,9 @@ export class StandComponent implements OnInit {
     } else {
       this.standForm.markAllAsTouched();
     }
+  }
+  setPoint(item: Stand){
+    this.visibleSetPoint = true
+    this.standSelected = item
   }
 }

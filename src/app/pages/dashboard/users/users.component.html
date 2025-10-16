@@ -3,6 +3,9 @@
   [users]="users"
   (edit)="onEdit($event)"
   (onMakeCredentials)="onCredentials($event)"
+  (onApprove)="toApprove($event)"
+  (onDisapprove)="toDisapprove($event)"
+  (delete)="onDelete($event)"
 ></app-users-table>
 
 <app-button-add (onClick)="visible = true"></app-button-add>
@@ -27,7 +30,7 @@
   [modal]="true"
   styleClass="!border-1 !bg-transparent"
   [breakpoints]="{ '1199px': '50vw', '575px': '90vw' }"
-  [style]="{ width: '25%' }"
+  [style]="{ width: '40%' }"
   (onHide)="updateTable()"
 >
   <app-users-credentials></app-users-credentials>
