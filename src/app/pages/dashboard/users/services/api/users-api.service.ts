@@ -21,4 +21,14 @@ export class UsersApiService {
   public createCredentials$(body: CreateCredential) {
     return this.httpClient.post<User>(this.apiUrlCredentials, body)
   }
+
+  public userDelete$(body: User) {
+    const url = `${this.apiUrl}/${body.id}`;
+    return this.httpClient.delete<User>(url)
+  }
+
+    public userApproval$(body: User) {
+    const url = `${this.apiUrl}/approval`;
+    return this.httpClient.patch<User>(url, body)
+  }
 }

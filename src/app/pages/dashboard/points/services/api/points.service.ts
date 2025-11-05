@@ -8,10 +8,16 @@ import { environment } from '../../../../../../environments/environment';
 })
 export class PointsService {
   server = environment.SERVER
-  constructor(private httpClient:HttpClient ) { }
+  constructor(private httpClient: HttpClient) { }
 
-  public getAllPoints$(){
-    const url =`${this.server}/puntos`
+  public getAllPoints$() {
+    const url = `${this.server}/puntos`
     return this.httpClient.get<Point[]>(url)
   }
+
+  public savePoint$(body: Point) {
+    const url = `${this.server}/puntos`
+    return this.httpClient.post<Point>(url, body)
+  }
+
 }

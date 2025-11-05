@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PointStatusEnums } from '../enums/point-enums';
 import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { LocalStorageEnums } from '../../../../core/enums/localstorage.enum';
+import { PointsService } from '../services/api/points.service';
+import { DataService } from '../../../../core/services/data/data.service';
+import { User } from '../../users/interfaces/user.interface';
 @Component({
   selector: 'app-point-add-edit',
   imports: [ReactiveFormsModule, CommonModule, FormsModule, CalendarModule, TableModule, ToggleButtonModule],
@@ -24,7 +27,14 @@ export class PointAddEditComponent implements OnInit {
   checked: any;
   user: any;
   stands: any[] = []
-  constructor(private fb: FormBuilder) { }
+  alert = false;
+  @Output() onClose = new EventEmitter<void>();
+  @Output() onSaved = new EventEmitter<User>();
+  constructor(
+    private fb: FormBuilder,
+    private pointsService: PointsService,
+    private dataService: DataService
+  ) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -36,7 +46,8 @@ export class PointAddEditComponent implements OnInit {
       address: ['', [Validators.required, Validators.maxLength(100)]],
       benchmark: ['', [Validators.required, Validators.maxLength(100)]],
       status: [PointStatusEnums.DESACTIVED, Validators.required],
-      pictures: ['img/cart.png', [Validators.required, Validators.pattern(/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif))$/i)]],
+      // pictures: ['img/cart.png', [Validators.required, Validators.pattern(/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif))$/i)]],
+      pictures: ['img/cart.png', []],
       latitud: [4.985576, [Validators.required, Validators.min(-90), Validators.max(90)]],
       longitud: [-75.604152, [Validators.required, Validators.min(-180), Validators.max(180)]],
     });
@@ -82,6 +93,14 @@ export class PointAddEditComponent implements OnInit {
     const finAbsoluto = new Date();
     finAbsoluto.setHours(hFin, mFin, 0, 0);
 
+    // validación: inicio debe ser menor que fin
+    if (inicio >= finAbsoluto) {
+      this.alert = true
+      console.warn('La hora de inicio debe ser menor que la hora fin.');
+      return [];
+    } else {
+      this.alert = false
+    }
     // Función de formateo a "08:00 a. m." / "02:30 p. m."
     const formato = (d: Date) =>
       d.toLocaleTimeString('es-ES', {
@@ -113,7 +132,7 @@ export class PointAddEditComponent implements OnInit {
     if (!this.interval || this.interval == 0) {
       this.interval = 1
     }
-    if (!this.hFrom || this.hTo) {
+    if (!this.hFrom || !this.hTo) {
       return;
     }
     this.hlist = this.generarHorasIntervalo(this.hFrom, this.hTo, this.interval);
@@ -128,6 +147,12 @@ export class PointAddEditComponent implements OnInit {
         ...this.schedule
       ]
     }
-    console.log({ body });
+    this.pointsService.savePoint$(body).subscribe(data => {
+      this.dataService.addToas$({ severity: 'contrast', summary: 'Guardar', detail: 'Punto guardado', life: 3000 })
+      this.onSaved.emit();
+    })
+  }
+  close(){
+    this.onClose.emit();
   }
 }

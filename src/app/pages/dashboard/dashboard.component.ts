@@ -80,3 +80,11 @@ interface Child {
   icon: string;
   data: string;
 }
+/*
+success	Mensaje de éxito o confirmación.	✅ “Operación realizada correctamente.”
+info	Información general o notificación.	ℹ️ “Actualización disponible.”
+warn	Advertencia, algo a revisar.	⚠️ “Campos incompletos.”
+error	Error o fallo en la operación.	❌ “Error al guardar los datos.”
+secondary (opcional)	Algunos temas personalizados lo incluyen, estilo neutro.	—
+contrast (opcional)	En temas recientes de PrimeNG, sirve para mensajes de alto contraste.
+*/

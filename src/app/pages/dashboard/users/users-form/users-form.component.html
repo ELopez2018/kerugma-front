@@ -1,4 +1,4 @@
-<h1 class="text-center text-2xl py-4 text-shadow-2xs text-white">REGISTRO DE  PUBLICADORES</h1>
+<h1 class="text-center text-2xl py-4 text-shadow-2xs text-white">REGISTRO DE PUBLICADORES</h1>
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="p-6 bg-green-900 rounded-xl text-green-100 space-y-4" *ngIf="user">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <!-- Document Type -->
@@ -60,7 +60,7 @@
     <div>
       <label class="block mb-1">Fecha de nacimiento</label>
       <input type="date" formControlName="birthdate" class="w-full p-2 rounded bg-green-800 border border-green-700" />
-       <div *ngIf="userForm.get('birthdate')?.touched && userForm.get('birthdate')?.invalid" class="text-red-400 text-sm">Apellido paterno inválido o vacío</div>
+      <div *ngIf="userForm.get('birthdate')?.touched && userForm.get('birthdate')?.invalid" class="text-red-400 text-sm">Apellido paterno inválido o vacío</div>
     </div>
 
     <!-- Gender -->
@@ -71,10 +71,8 @@
         <option value="M">Masculino</option>
         <option value="F">Femenino</option>
       </select>
-       <div *ngIf="userForm.get('gender')?.touched && userForm.get('gender')?.invalid" class="text-red-400 text-sm">Apellido paterno inválido o vacío</div>
-
+      <div *ngIf="userForm.get('gender')?.touched && userForm.get('gender')?.invalid" class="text-red-400 text-sm">Apellido paterno inválido o vacío</div>
     </div>
-
 
     <!-- Cell Phone -->
     <div>
@@ -83,12 +81,11 @@
       <div *ngIf="userForm.get('cellPhone')?.touched && userForm.get('cellPhone')?.invalid" class="text-red-400 text-sm">Formato de celular inválido</div>
     </div>
 
-
     <!-- Congregation (select) -->
     <div>
       <label class="block mb-1">Congregación</label>
       <select formControlName="congregation" class="w-full p-2 rounded bg-green-800 border border-green-700">
-        <option  [value]="null" >Elija su Congregacion</option>
+        <option [value]="null">Elija su Congregacion</option>
         <option [ngValue]="item" *ngFor="let item of congregations">{{ item.name }}</option>
       </select>
       <div *ngIf="userForm.get('congregation')?.touched && userForm.get('congregation')?.invalid" class="text-red-400 text-sm">Seleccione una congregación</div>
@@ -104,12 +101,12 @@
         </label>
       </div>
     </div>
-
   </div>
 
   <!-- Submit Button -->
   <div class="mt-6">
-    <button type="submit" class="px-6 py-2 bg-green-700 hover:bg-green-600 rounded text-white">Guardar</button>
+    <button (click)="onCancel()" type="button" class="px-4 py-2 me-5 bg-red-600 hover:bg-red-500 rounded transition">Cancelar</button>
+    <button type="submit" class="px-6 py-2  bg-green-700 hover:bg-green-600 rounded text-white">Guardar</button>
+
   </div>
 </form>
-

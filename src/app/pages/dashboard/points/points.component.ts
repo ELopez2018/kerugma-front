@@ -33,6 +33,10 @@ export class PointsComponent implements OnInit {
   visible: boolean = false;
   constructor(private pointsService: PointsService) { }
   ngOnInit(): void {
+    this.getAllPoints()
+  }
+
+  getAllPoints() {
     this.pointsService.getAllPoints$().subscribe(
       data => {
         this.allPoints = data
@@ -128,5 +132,7 @@ export class PointsComponent implements OnInit {
   get disabled() {
     return this.pointSelected == null || this.timeSelected == null || this.dateSelected == null
   }
+  onSaved() {
 
+  }
 }

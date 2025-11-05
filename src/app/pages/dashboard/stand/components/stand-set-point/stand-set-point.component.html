@@ -1,29 +1,15 @@
-<form
-  (ngSubmit)="onSubmit()"
-  class="p-6 bg-green-900 rounded-xl text-green-100 space-y-4"
-  *ngIf="stand"
->
+<form (ngSubmit)="onSubmit()" class="p-6 bg-green-900 rounded-xl text-green-100 space-y-4" *ngIf="stand">
   <h1>Número {{ stand.id }}</h1>
 
   <div>
     <label class="block mb-1">Asignar a:</label>
-    <select
-      class="w-full p-2 rounded bg-green-800 border border-green-700"
-      [(ngModel)]="stand.point"
-      name="point"
-    >
-      <option  [value]="null" disabled >Seleccione</option>
+    <select class="w-full p-2 rounded bg-green-800 border border-green-700" [(ngModel)]="stand.point" name="point">
+      <option [value]="null" disabled>Seleccione</option>
       <option *ngFor="let p of points" [ngValue]="p">{{ p.title }}</option>
     </select>
   </div>
 
   <div class="mt-6">
-    <button
-      type="submit"
-      class="px-6 py-2 bg-green-700 hover:bg-green-600 rounded text-white"
-    >
-      Asignar
-    </button>
+    <button type="submit" class="px-6 py-2 bg-green-700 hover:bg-green-600 rounded text-white">Asignar</button>
   </div>
 </form>
-

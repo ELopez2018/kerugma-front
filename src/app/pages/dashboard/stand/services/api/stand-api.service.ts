@@ -24,4 +24,9 @@ export class StandApiService {
     const url = `${this.apiUrl}/assign/${body.id}`
     return this.httpClient.put<Stand>(url, body)
   }
+
+  public delete$(body: Stand) {
+    const url = `${this.apiUrl}/${body.id}`
+    return this.httpClient.delete<Stand>(url)
+  }
 }

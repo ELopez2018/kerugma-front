@@ -1,3 +1,4 @@
+import { ItemInventory } from "../../../../core/interfaces/interfaces";
 import { Congregation } from "../../congregations/interfaces/congregation.interface";
 import { Point } from "../../points/interfaces/point.interfaces";
 
@@ -12,11 +13,7 @@ export interface Stand {
   point: Point
 }
 
-export interface Inventory {
-  id: number;
-  title: string;
-  stock: number;
-  type: string;
-  updatedAt: string;
+export interface Inventory extends ItemInventory {
+
 }
 

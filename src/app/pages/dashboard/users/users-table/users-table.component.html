@@ -64,7 +64,7 @@
               {{ user.congregation.name }}
             </td>
             <td class="px-2 py-2 text-xs sm:text-sm hidden md:table-cell">
-              {{ user.approved }}
+              {{ user?.approved ?? "Pendiente" }}
             </td>
             <td class="px-2 py-2 space-x-2 text-center">
               <button

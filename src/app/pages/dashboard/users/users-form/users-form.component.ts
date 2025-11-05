@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DataService } from '../../../../core/services/data/data.service';
 import { Congregation } from '../../congregations/interfaces/congregation.interface';
@@ -23,6 +23,8 @@ export class UsersFormComponent implements OnInit {
   congregations: Congregation[] = [];
   designations: Designation[] = []
   user!: User;
+  @Output() onClose = new EventEmitter<void>();
+  @Output() onUserCreated= new EventEmitter<void>();
   constructor(
     private fb: FormBuilder,
     private congregationsApiService: CongregationsApiService,
@@ -83,14 +85,13 @@ export class UsersFormComponent implements OnInit {
           const message = { severity: 'contrast', summary: 'Actualización', detail: 'Publicador actualizado', life: 3000 }
           this.dataService.addToas$(message)
           this.usersDataService.setUser(data)
-          console.log(data);
+
         } else {
           const message = { severity: 'contrast', summary: 'Registro', detail: 'Publicador registrado', life: 3000 }
           this.dataService.addToas$(message)
           this.userForm.reset()
+          this.onUserCreated.emit();
         }
-
-        console.log(data);
       }, error => {
         const message = { severity: 'warn', summary: 'Registro', detail: error.error.message, life: 3000 }
         this.dataService.addToas$(message)
@@ -123,4 +124,8 @@ export class UsersFormComponent implements OnInit {
     const designations = this.userForm.value.designations || [];
     return designations.some((d: any) => d.id === id);
   }
+
+    onCancel() {
+    this.onClose.emit();
+   }
 }

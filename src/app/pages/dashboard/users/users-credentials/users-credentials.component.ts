@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DataService } from '../../../../core/services/data/data.service';
 import { UsersApiService } from '../services/api/users-api.service';
@@ -18,6 +18,7 @@ export class UsersCredentialsComponent implements OnInit {
   credentialForm!: FormGroup;
   user!: User;
   error!: string | null;
+   @Output() onClose = new EventEmitter<void>();
   constructor(
     private fb: FormBuilder,
     private usersApiService: UsersApiService,
@@ -59,4 +60,7 @@ export class UsersCredentialsComponent implements OnInit {
       this.credentialForm.markAllAsTouched();
     }
   }
+    onCancel() {
+    this.onClose.emit();
+   }
 }
