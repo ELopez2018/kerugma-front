@@ -3,12 +3,12 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { DataService } from '../../../../../core/services/data/data.service';
 import { Congregation } from '../../interfaces/congregation.interface';
 import { CongregationsApiService } from '../../services/api/congregations.service';
-import { CommonModule } from '@angular/common';
+
 import { CongregationDataService } from '../../services/data/congregation-data.service';
 
 @Component({
   selector: 'app-congregations-form-add-edit',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './congregations-form-add-edit.component.html',
   styleUrl: './congregations-form-add-edit.component.css',
   standalone: true

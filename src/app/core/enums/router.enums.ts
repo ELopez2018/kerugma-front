@@ -10,6 +10,8 @@ export enum RoutesEnums {
   TURNS = "turnos",
   POINT_MAPS = "puntos-de-predicacion-publica",
   STATISTICS ="estadisticas",
-  STANDS ="stands"
+  STANDS ="stands",
+  CALENDAR ="calendario",
+  SHIFT_REQUEST = "solicitar-turno"
 
 }

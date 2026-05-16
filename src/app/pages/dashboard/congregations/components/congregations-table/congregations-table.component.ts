@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Congregation } from '../../interfaces/congregation.interface';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-congregations-table',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './congregations-table.component.html',
   styleUrl: './congregations-table.component.css',
   standalone: true

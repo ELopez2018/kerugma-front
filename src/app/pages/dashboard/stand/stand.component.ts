@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, NO_ERRORS_SCHEMA, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Stand } from './interfaces/stand.interface';
@@ -11,7 +11,7 @@ import { StandSetInventoryComponent } from "./components/stand-set-inventory/sta
 import Swal from 'sweetalert2'
 @Component({
   selector: 'app-stand',
-  imports: [CommonModule, ButtonAddComponent, StandAddComponent, Dialog, StandSetPointComponent, StandSetInventoryComponent],
+  imports: [ButtonAddComponent, StandAddComponent, Dialog, StandSetPointComponent, StandSetInventoryComponent],
   templateUrl: './stand.component.html',
   styleUrl: './stand.component.css',
   standalone: true,

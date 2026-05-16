@@ -3,7 +3,7 @@
     <div class="overflow-hidden rounded-xl border border-green-800 shadow">
       <table
         class="min-w-full divide-y divide-green-800 bg-green-900 text-white"
-      >
+        >
         <thead class="bg-green-800">
           <tr>
             <th class="px-2 py-2 text-left text-xs sm:text-sm font-semibold">
@@ -17,28 +17,28 @@
             </th>
             <th
               class="px-2 py-2 text-left text-xs sm:text-sm font-semibold hidden md:table-cell"
-            >
+              >
               Género
             </th>
 
             <th
               class="px-2 py-2 text-left text-xs sm:text-sm font-semibold hidden md:table-cell"
-            >
+              >
               Celular
             </th>
             <th
               class="px-2 py-2 text-left text-xs sm:text-sm font-semibold hidden lg:table-cell"
-            >
+              >
               Documento
             </th>
             <th
               class="px-2 py-2 text-left text-xs sm:text-sm font-semibold hidden lg:table-cell"
-            >
+              >
               Congregación
             </th>
             <th
               class="px-2 py-2 text-left text-xs sm:text-sm font-semibold hidden md:table-cell"
-            >
+              >
               Aprobacion
             </th>
             <th class="px-2 py-2 text-center text-xs sm:text-sm font-semibold">
@@ -47,61 +47,66 @@
           </tr>
         </thead>
         <tbody class="divide-y divide-green-700">
-          <tr *ngFor="let user of users" class="hover:bg-green-800 transition">
-            <td class="px-2 py-2 text-xs sm:text-sm">{{ user.id }}</td>
-            <td class="px-2 py-2 text-xs sm:text-sm">{{ user.fullName }}</td>
-            <td class="px-2 py-2 text-xs sm:text-sm">{{ user.email }}</td>
-            <td class="px-2 py-2 text-xs sm:text-sm hidden md:table-cell">
-              {{ user.gender }}
-            </td>
-            <td class="px-2 py-2 text-xs sm:text-sm hidden md:table-cell">
-              {{ user.cellPhone }}
-            </td>
-            <td class="px-2 py-2 text-xs sm:text-sm hidden lg:table-cell">
-              {{ user.documentType }} {{ user.documentNumber || "-" }}
-            </td>
-            <td class="px-2 py-2 text-xs sm:text-sm hidden lg:table-cell">
-              {{ user.congregation.name }}
-            </td>
-            <td class="px-2 py-2 text-xs sm:text-sm hidden md:table-cell">
-              {{ user?.approved ?? "Pendiente" }}
-            </td>
-            <td class="px-2 py-2 space-x-2 text-center">
-              <button
-                class="bg-emerald-600 hover:bg-emerald-500 hover:cursor-pointer text-white text-xs sm:text-sm font-semibold py-1 px-2 rounded"
-                (click)="onCredentials(user)"
-                *ngIf="user.approved"
-              >
-                <i class="pi pi-key" title="Crear Credenciales"></i>
-              </button>
-              <button
-                class="bg-amber-600 hover:bg-amber-500 hover:cursor-pointer text-white text-xs sm:text-sm font-semibold py-1 px-2 rounded"
-                (click)="onToApprove(user)"
-                *ngIf="user.approved"
-              >
-                <i class="pi pi-times-circle" title="Desaprobar"></i>
-              </button>
-              <button
-                class="bg-blue-600 hover:bg-blue-500 hover:cursor-pointer text-white text-xs sm:text-sm font-semibold py-1 px-2 rounded"
-                (click)="onToDisapprove(user)"
-                *ngIf="!user.approved"
-              >
-                <i class="pi pi-verified" title="Aprobar"></i>
-              </button>
-              <button
-                class="bg-green-600 hover:bg-green-500 hover:cursor-pointer text-white text-xs sm:text-sm font-semibold py-1 px-2 rounded"
-                (click)="onEdit(user)"
-              >
-                <i class="pi pi-user-edit" title="Editar"></i>
-              </button>
-              <button
-                class="bg-red-600 hover:bg-red-500 hover:cursor-pointer text-white text-xs sm:text-sm font-semibold py-1 px-2 rounded"
-                (click)="onDelete(user)"
-              >
-                <i class="pi pi-trash" title="Borrar"></i>
-              </button>
-            </td>
-          </tr>
+          @for (user of users; track user) {
+            <tr class="hover:bg-green-800 transition">
+              <td class="px-2 py-2 text-xs sm:text-sm">{{ user.id }}</td>
+              <td class="px-2 py-2 text-xs sm:text-sm">{{ user.fullName }}</td>
+              <td class="px-2 py-2 text-xs sm:text-sm">{{ user.email }}</td>
+              <td class="px-2 py-2 text-xs sm:text-sm hidden md:table-cell">
+                {{ user.gender }}
+              </td>
+              <td class="px-2 py-2 text-xs sm:text-sm hidden md:table-cell">
+                {{ user.cellPhone }}
+              </td>
+              <td class="px-2 py-2 text-xs sm:text-sm hidden lg:table-cell">
+                {{ user.documentType }} {{ user.documentNumber || "-" }}
+              </td>
+              <td class="px-2 py-2 text-xs sm:text-sm hidden lg:table-cell">
+                {{ user.congregation.name }}
+              </td>
+              <td class="px-2 py-2 text-xs sm:text-sm hidden md:table-cell">
+                {{ user?.approved ?? "Pendiente" }}
+              </td>
+              <td class="px-2 py-2 space-x-2 text-center">
+                @if (user.approved) {
+                  <button
+                    class="bg-emerald-600 hover:bg-emerald-500 hover:cursor-pointer text-white text-xs sm:text-sm font-semibold py-1 px-2 rounded"
+                    (click)="onCredentials(user)"
+                    >
+                    <i class="pi pi-key" title="Crear Credenciales"></i>
+                  </button>
+                }
+                @if (user.approved) {
+                  <button
+                    class="bg-amber-600 hover:bg-amber-500 hover:cursor-pointer text-white text-xs sm:text-sm font-semibold py-1 px-2 rounded"
+                    (click)="onToApprove(user)"
+                    >
+                    <i class="pi pi-times-circle" title="Desaprobar"></i>
+                  </button>
+                }
+                @if (!user.approved) {
+                  <button
+                    class="bg-blue-600 hover:bg-blue-500 hover:cursor-pointer text-white text-xs sm:text-sm font-semibold py-1 px-2 rounded"
+                    (click)="onToDisapprove(user)"
+                    >
+                    <i class="pi pi-verified" title="Aprobar"></i>
+                  </button>
+                }
+                <button
+                  class="bg-green-600 hover:bg-green-500 hover:cursor-pointer text-white text-xs sm:text-sm font-semibold py-1 px-2 rounded"
+                  (click)="onEdit(user)"
+                  >
+                  <i class="pi pi-user-edit" title="Editar"></i>
+                </button>
+                <button
+                  class="bg-red-600 hover:bg-red-500 hover:cursor-pointer text-white text-xs sm:text-sm font-semibold py-1 px-2 rounded"
+                  (click)="onDelete(user)"
+                  >
+                  <i class="pi pi-trash" title="Borrar"></i>
+                </button>
+              </td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>

@@ -6,14 +6,14 @@ import { CongregationsApiService } from '../../congregations/services/api/congre
 import { Designation } from '../../designation/interfaces/designation.interface';
 import { DesignationApiService } from '../../designation/services/api/designation-api.service';
 import { UsersApiService } from '../services/api/users-api.service';
-import { CommonModule } from '@angular/common';
+
 import { LocalStorageEnums } from '../../../../core/enums/localstorage.enum';
 import { User } from '../interfaces/user.interface';
 import { UsersDataService } from '../services/data/users-data.service';
 
 @Component({
   selector: 'app-users-form',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './users-form.component.html',
   styleUrl: './users-form.component.css',
   standalone: true

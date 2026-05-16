@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Stand } from '../../interfaces/stand.interface';
@@ -12,7 +12,7 @@ import { DataService } from '../../../../../core/services/data/data.service';
 
 @Component({
   selector: 'app-stand-add',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './stand-add.component.html',
   styleUrl: './stand-add.component.css'
 })

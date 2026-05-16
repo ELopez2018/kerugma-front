@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { RoutesEnums } from '../../core/enums/router.enums';

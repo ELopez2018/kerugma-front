@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Point } from '../interfaces/point.interfaces';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-points-card',
-  imports: [ CommonModule],
+  imports: [],
   templateUrl: './points-card.component.html',
   styleUrl: './points-card.component.css',
   standalone: true

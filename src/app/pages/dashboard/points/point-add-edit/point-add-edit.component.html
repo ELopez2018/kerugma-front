@@ -4,49 +4,63 @@
     <div>
       <label class="block text-sm font-medium">Título</label>
       <input formControlName="title" type="text" class="input" />
-      <small *ngIf="f['title'].touched && f['title'].invalid" class="text-red-400"> Campo requerido (máx. 50 caracteres) </small>
+      @if (f['title'].touched && f['title'].invalid) {
+        <small class="text-red-400"> Campo requerido (máx. 50 caracteres) </small>
+      }
     </div>
 
     <!-- Departamento -->
     <div>
       <label class="block text-sm font-medium">Departamento</label>
       <input formControlName="state" type="text" class="input" />
-      <small *ngIf="f['state'].touched && f['state'].invalid" class="text-red-400">Campo requerido</small>
+      @if (f['state'].touched && f['state'].invalid) {
+        <small class="text-red-400">Campo requerido</small>
+      }
     </div>
 
     <!-- Municipio -->
     <div>
       <label class="block text-sm font-medium">Municipio</label>
       <input formControlName="municipality" type="text" class="input" />
-      <small *ngIf="f['municipality'].touched && f['municipality'].invalid" class="text-red-400">Campo requerido</small>
+      @if (f['municipality'].touched && f['municipality'].invalid) {
+        <small class="text-red-400">Campo requerido</small>
+      }
     </div>
 
     <!-- Ciudad -->
     <div>
       <label class="block text-sm font-medium">Ciudad</label>
       <input formControlName="city" type="text" class="input" />
-      <small *ngIf="f['city'].touched && f['city'].invalid" class="text-red-400">Campo requerido</small>
+      @if (f['city'].touched && f['city'].invalid) {
+        <small class="text-red-400">Campo requerido</small>
+      }
     </div>
 
     <!-- Barrio -->
     <div class="md:col-span-1">
       <label class="block text-sm font-medium">Barrio</label>
       <input formControlName="neighborhood" type="text" class="input" />
-      <small *ngIf="f['neighborhood'].touched && f['neighborhood'].invalid" class="text-red-400">Campo requerido</small>
+      @if (f['neighborhood'].touched && f['neighborhood'].invalid) {
+        <small class="text-red-400">Campo requerido</small>
+      }
     </div>
 
     <!-- Dirección -->
     <div class="md:col-span-1">
       <label class="block text-sm font-medium">Dirección</label>
       <textarea formControlName="address" rows="1" class="input resize-none"></textarea>
-      <small *ngIf="f['address'].touched && f['address'].invalid" class="text-red-400"> Campo requerido (máx. 100 caracteres) </small>
+      @if (f['address'].touched && f['address'].invalid) {
+        <small class="text-red-400"> Campo requerido (máx. 100 caracteres) </small>
+      }
     </div>
 
     <!-- Referencia -->
     <div class="md:col-span-2">
       <label class="block text-sm font-medium">Punto de Referencia</label>
       <textarea formControlName="benchmark" rows="1" class="input resize-none"></textarea>
-      <small *ngIf="f['benchmark'].touched && f['benchmark'].invalid" class="text-red-400"> Campo requerido (máx. 100 caracteres) </small>
+      @if (f['benchmark'].touched && f['benchmark'].invalid) {
+        <small class="text-red-400"> Campo requerido (máx. 100 caracteres) </small>
+      }
     </div>
 
     <!-- Estado del punto -->
@@ -56,28 +70,36 @@
         <option value="actived">Activo</option>
         <option value="deactivated">Inactivo</option>
       </select>
-      <small *ngIf="f['status'].touched && f['status'].invalid" class="text-red-400">Campo requerido</small>
+      @if (f['status'].touched && f['status'].invalid) {
+        <small class="text-red-400">Campo requerido</small>
+      }
     </div>
 
     <!-- URL Imagen -->
     <div>
       <label class="block text-sm font-medium">URL Imagen</label>
       <input formControlName="pictures" type="url" class="input" />
-      <small *ngIf="f['pictures'].touched && f['pictures'].invalid" class="text-red-400"> Debe ser una URL válida de imagen (jpg, png, gif, etc.) </small>
+      @if (f['pictures'].touched && f['pictures'].invalid) {
+        <small class="text-red-400"> Debe ser una URL válida de imagen (jpg, png, gif, etc.) </small>
+      }
     </div>
 
     <!-- Latitud -->
     <div>
       <label class="block text-sm font-medium">Latitud</label>
       <input formControlName="latitud" type="number" step="any" class="input" />
-      <small *ngIf="f['latitud'].touched && f['latitud'].invalid" class="text-red-400"> Valor entre -90 y 90 </small>
+      @if (f['latitud'].touched && f['latitud'].invalid) {
+        <small class="text-red-400"> Valor entre -90 y 90 </small>
+      }
     </div>
 
     <!-- Longitud -->
     <div>
       <label class="block text-sm font-medium">Longitud</label>
       <input formControlName="longitud" type="number" step="any" class="input" />
-      <small *ngIf="f['longitud'].touched && f['longitud'].invalid" class="text-red-400"> Valor entre -180 y 180 </small>
+      @if (f['longitud'].touched && f['longitud'].invalid) {
+        <small class="text-red-400"> Valor entre -180 y 180 </small>
+      }
     </div>
 
     <!-- Latitud -->
@@ -108,7 +130,9 @@
 <div class="w-full mx-auto p-4 bg-green-900 text-white rounded-2xl shadow-lg" [ngClass]="{ hidden: step == 1 }">
   <div class="grid gap-2 grid-cols-1 md:grid-cols-2">
     <h2 class="md:col-span-2 text-center py-2">HORARIO Y CARRITOS</h2>
-    <h3 *ngIf="alert" class="md:col-span-2 text-center py-2 text-yellow-400">ALERTA: LA HORA DE INICIO DEBE SER MAYOR A LAHORA FINAL</h3>
+    @if (alert) {
+      <h3 class="md:col-span-2 text-center py-2 text-yellow-400">ALERTA: LA HORA DE INICIO DEBE SER MAYOR A LAHORA FINAL</h3>
+    }
     <div class="md:col-span-1 flex justify-center rounded-2xl shadow-lg ">
       <p-table [value]="schedule" [scrollable]="true" scrollHeight="50vh" [tableStyle]="{ 'min-width': '20rem' }">
         <ng-template #header>
@@ -130,13 +154,13 @@
                 offIcon="pi pi-lock"
                 styleClass="w-36"
                 ariaLabel="Do you confirm"
-              />
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
-    <!-- <div class="md:col-span-1 flex justify-center">
+                />
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <!-- <div class="md:col-span-1 flex justify-center">
       <p-table [value]="[]" scrollHeight="50vh" [tableStyle]="{ 'min-width': '20rem' }">
         <ng-template #header>
           <tr>

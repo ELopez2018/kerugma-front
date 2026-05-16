@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DataService } from '../../../../core/services/data/data.service';
@@ -9,7 +9,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-users-credentials',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './users-credentials.component.html',
   styleUrl: './users-credentials.component.css',
   standalone: true

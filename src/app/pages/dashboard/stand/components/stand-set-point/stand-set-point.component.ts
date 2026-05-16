@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PointsService } from '../../../points/services/api/points.service';
@@ -11,7 +11,7 @@ import { finalize } from 'rxjs/operators';
 @Component({
   selector: 'app-stand-set-point',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './stand-set-point.component.html',
   styleUrl: './stand-set-point.component.css',
 })

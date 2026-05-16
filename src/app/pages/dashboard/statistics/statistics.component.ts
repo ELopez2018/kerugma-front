@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import gsap from "gsap";
 
 @Component({
   selector: 'app-statistics',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.css'
 })

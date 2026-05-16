@@ -10,56 +10,60 @@
 
 <app-button-add (onClick)="visible = true"></app-button-add>
 <!-- MODAL -->
-<p-dialog
-  maskStyleClass="backdrop-blur-sm"
-  [(visible)]="visible"
-  [modal]="true"
-  styleClass="!border-1 !bg-transparent"
-  [breakpoints]="{ '1199px': '50vw', '575px': '90vw' }"
-  [style]="{ width: '80vw' }"
-  (onHide)="updateTable()"
-  *ngIf="visible"
->
-  <app-users-form (onClose)="visible = false" (onUserCreated)="onUserCreated()" ></app-users-form>
-</p-dialog>
+@if (visible) {
+  <p-dialog
+    maskStyleClass="backdrop-blur-sm"
+    [(visible)]="visible"
+    [modal]="true"
+    styleClass="!border-1 !bg-transparent"
+    [breakpoints]="{ '1199px': '50vw', '575px': '90vw' }"
+    [style]="{ width: '80vw' }"
+    (onHide)="updateTable()"
+    >
+    <app-users-form (onClose)="visible = false" (onUserCreated)="onUserCreated()" ></app-users-form>
+  </p-dialog>
+}
 
-<p-dialog
-  *ngIf="visibleCredentials"
-  maskStyleClass="backdrop-blur-sm"
-  [(visible)]="visibleCredentials"
-  [modal]="true"
-  styleClass="!border-1 !bg-transparent"
-  [breakpoints]="{ '1199px': '50vw', '575px': '90vw' }"
-  [style]="{ width: '40%' }"
-  (onHide)="updateTable()"
->
-  <app-users-credentials (onClose)="visibleCredentials = false"></app-users-credentials>
-</p-dialog>
+@if (visibleCredentials) {
+  <p-dialog
+    maskStyleClass="backdrop-blur-sm"
+    [(visible)]="visibleCredentials"
+    [modal]="true"
+    styleClass="!border-1 !bg-transparent"
+    [breakpoints]="{ '1199px': '50vw', '575px': '90vw' }"
+    [style]="{ width: '40%' }"
+    (onHide)="updateTable()"
+    >
+    <app-users-credentials (onClose)="visibleCredentials = false"></app-users-credentials>
+  </p-dialog>
+}
 
-<p-dialog
-  *ngIf="visibleUserDelete"
-  maskStyleClass="backdrop-blur-sm"
-  [(visible)]="visibleUserDelete"
-  [modal]="true"
-  styleClass="!border-1 !bg-transparent"
-  [breakpoints]="{ '1199px': '50vw', '575px': '90vw' }"
-  [style]="{ width: 'fit-content' }"
-  (onHide)="updateTable()"
->
-  <app-users-delete (onClose)="visibleUserDelete = false" (onDeleted)="onDeleted()" ></app-users-delete>
-</p-dialog>
+@if (visibleUserDelete) {
+  <p-dialog
+    maskStyleClass="backdrop-blur-sm"
+    [(visible)]="visibleUserDelete"
+    [modal]="true"
+    styleClass="!border-1 !bg-transparent"
+    [breakpoints]="{ '1199px': '50vw', '575px': '90vw' }"
+    [style]="{ width: 'fit-content' }"
+    (onHide)="updateTable()"
+    >
+    <app-users-delete (onClose)="visibleUserDelete = false" (onDeleted)="onDeleted()" ></app-users-delete>
+  </p-dialog>
+}
 
-<p-dialog
-  *ngIf="visibleUserApprover"
-  maskStyleClass="backdrop-blur-sm"
-  [(visible)]="visibleUserApprover"
-  [modal]="true"
-  styleClass="!border-1 !bg-transparent"
-  [breakpoints]="{ '1199px': '50vw', '575px': '90vw' }"
-  [style]="{ width: 'fit-content' }"
-  (onHide)="updateTable()"
->
-  <app-users-approver (onClose)="visibleUserApprover = false" (onApproveOrDesapprove)="approveOrDesapprove($event)" ></app-users-approver>
-</p-dialog>
+@if (visibleUserApprover) {
+  <p-dialog
+    maskStyleClass="backdrop-blur-sm"
+    [(visible)]="visibleUserApprover"
+    [modal]="true"
+    styleClass="!border-1 !bg-transparent"
+    [breakpoints]="{ '1199px': '50vw', '575px': '90vw' }"
+    [style]="{ width: 'fit-content' }"
+    (onHide)="updateTable()"
+    >
+    <app-users-approver (onClose)="visibleUserApprover = false" (onApproveOrDesapprove)="approveOrDesapprove($event)" ></app-users-approver>
+  </p-dialog>
+}
 
 

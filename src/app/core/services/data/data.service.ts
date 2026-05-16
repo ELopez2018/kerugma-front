@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ToastMessageOptions } from 'primeng/api';
 import { BehaviorSubject } from 'rxjs';
+import { TurnResponseDTO } from '../../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
   private toast$: BehaviorSubject<ToastMessageOptions> = new BehaviorSubject(<ToastMessageOptions>{})
+  
   constructor() { }
   public getToas$() {
     return this.toast$.asObservable()
@@ -14,4 +16,5 @@ export class DataService {
   public addToas$(toas: ToastMessageOptions) {
     this.toast$.next(toas)
   }
+ 
 }

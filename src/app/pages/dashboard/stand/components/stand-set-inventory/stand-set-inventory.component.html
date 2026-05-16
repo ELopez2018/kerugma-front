@@ -19,64 +19,67 @@
 
     <tbody>
       @for (item of items(); track item.id) {
-      <tr *ngIf="editingId() !== item.id" class="border-b border-green-800 hover:bg-green-900/50 transition">
-        <td class="px-4 py-2">{{ item.title }}</td>
-        <td class="px-4 py-2">{{ item.stock }}</td>
-        <td class="px-4 py-2">{{ item.type }}</td>
-        <td class="px-4 py-2">{{ item.updatedAt | date : "short" }}</td>
-        <td class="px-4 py-2 text-center space-x-2">
-          <button type="button" (click)="startEdit(item)" class="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-white text-sm">Editar</button>
-          <button type="button" (click)="delete(item)" class="px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-white text-sm">Eliminar</button>
-        </td>
-      </tr>
+        @if (editingId() !== item.id) {
+          <tr class="border-b border-green-800 hover:bg-green-900/50 transition">
+            <td class="px-4 py-2">{{ item.title }}</td>
+            <td class="px-4 py-2">{{ item.stock }}</td>
+            <td class="px-4 py-2">{{ item.type }}</td>
+            <td class="px-4 py-2">{{ item.updatedAt | date : "short" }}</td>
+            <td class="px-4 py-2 text-center space-x-2">
+              <button type="button" (click)="startEdit(item)" class="px-3 py-1 bg-green-700 hover:bg-green-600 rounded text-white text-sm">Editar</button>
+              <button type="button" (click)="delete(item)" class="px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-white text-sm">Eliminar</button>
+            </td>
+          </tr>
+        }
 
-      <!-- fila editable -->
-      <tr *ngIf="editingId() === item.id">
-        <td colspan="5" class="p-4 bg-green-900 border-b border-green-800 rounded">
-          <form [formGroup]="form" class="grid grid-cols-4 gap-4 items-end">
-            <input type="text" formControlName="title" placeholder="Título" class="p-2 rounded bg-green-950 border border-green-700 focus:ring-2 focus:ring-green-500" />
-            <input type="number" formControlName="stock" placeholder="Stock" class="p-2 rounded bg-green-950 border border-green-700 focus:ring-2 focus:ring-green-500" />
-            <select formControlName="type" class="p-2 rounded bg-green-950 border border-green-700 focus:ring-2 focus:ring-green-500">
-              <option value="" disabled>Seleccione</option>
-              @for (t of types; track $index) {
-              <option [value]="t">{{ t }}</option>
-              }
-            </select>
-
-            <div class="flex justify-end gap-2">
-              <button type="button" (click)="save()" class="px-4 py-1 bg-green-700 hover:bg-green-600 rounded text-white text-sm">Guardar</button>
-              <button type="button" (click)="cancel()" class="px-4 py-1 bg-gray-600 hover:bg-gray-500 rounded text-white text-sm">Cancelar</button>
-            </div>
-          </form>
-        </td>
-      </tr>
+        <!-- fila editable -->
+        @if (editingId() === item.id) {
+          <tr>
+            <td colspan="5" class="p-4 bg-green-900 border-b border-green-800 rounded">
+              <form [formGroup]="form" class="grid grid-cols-4 gap-4 items-end">
+                <input type="text" formControlName="title" placeholder="Título" class="p-2 rounded bg-green-950 border border-green-700 focus:ring-2 focus:ring-green-500" />
+                <input type="number" formControlName="stock" placeholder="Stock" class="p-2 rounded bg-green-950 border border-green-700 focus:ring-2 focus:ring-green-500" />
+                <select formControlName="type" class="p-2 rounded bg-green-950 border border-green-700 focus:ring-2 focus:ring-green-500">
+                  <option value="" disabled>Seleccione</option>
+                  @for (t of types; track $index) {
+                    <option [value]="t">{{ t }}</option>
+                  }
+                </select>
+                <div class="flex justify-end gap-2">
+                  <button type="button" (click)="save()" class="px-4 py-1 bg-green-700 hover:bg-green-600 rounded text-white text-sm">Guardar</button>
+                  <button type="button" (click)="cancel()" class="px-4 py-1 bg-gray-600 hover:bg-gray-500 rounded text-white text-sm">Cancelar</button>
+                </div>
+              </form>
+            </td>
+          </tr>
+        }
       }
 
       <!-- fila para nuevo registro -->
       @if (creating()) {
-      <tr>
-        <td colspan="5" class="p-4 bg-green-900 border-b border-green-800 rounded">
-          <form [formGroup]="form" class="grid grid-cols-4 gap-4 items-end">
-            <input type="text" formControlName="title" placeholder="Título" class="p-2 rounded bg-green-950 border border-green-700 focus:ring-2 focus:ring-green-500" />
-            <input type="number" formControlName="stock" placeholder="Stock" class="p-2 rounded bg-green-950 border border-green-700 focus:ring-2 focus:ring-green-500" />
-            <select formControlName="type" class="p-2 rounded bg-green-950 border border-green-700 focus:ring-2 focus:ring-green-500">
-              <option value="" disabled>Seleccione</option>
-              @for (t of types; track $index) {
-              <option [value]="t">{{ t }}</option>
-              }
-            </select>
+        <tr>
+          <td colspan="5" class="p-4 bg-green-900 border-b border-green-800 rounded">
+            <form [formGroup]="form" class="grid grid-cols-4 gap-4 items-end">
+              <input type="text" formControlName="title" placeholder="Título" class="p-2 rounded bg-green-950 border border-green-700 focus:ring-2 focus:ring-green-500" />
+              <input type="number" formControlName="stock" placeholder="Stock" class="p-2 rounded bg-green-950 border border-green-700 focus:ring-2 focus:ring-green-500" />
+              <select formControlName="type" class="p-2 rounded bg-green-950 border border-green-700 focus:ring-2 focus:ring-green-500">
+                <option value="" disabled>Seleccione</option>
+                @for (t of types; track $index) {
+                  <option [value]="t">{{ t }}</option>
+                }
+              </select>
 
-            <div class="flex justify-end gap-2">
-              <button type="button" (click)="save()" class="px-4 py-1 bg-green-700 hover:bg-green-600 rounded text-white text-sm">Agregar</button>
-              <button type="button" (click)="cancel()" class="px-4 py-1 bg-gray-600 hover:bg-gray-500 rounded text-white text-sm">Cancelar</button>
-            </div>
-          </form>
-        </td>
-      </tr>
-      } @if (!items().length && !creating()) {
-      <tr>
-        <td colspan="5" class="text-center py-6 text-green-400">No hay artículos registrados.</td>
-      </tr>
+              <div class="flex justify-end gap-2">
+                <button type="button" (click)="save()" class="px-4 py-1 bg-green-700 hover:bg-green-600 rounded text-white text-sm">Agregar</button>
+                <button type="button" (click)="cancel()" class="px-4 py-1 bg-gray-600 hover:bg-gray-500 rounded text-white text-sm">Cancelar</button>
+              </div>
+            </form>
+          </td>
+        </tr>
+        } @if (!items().length && !creating()) {
+        <tr>
+          <td colspan="5" class="text-center py-6 text-green-400">No hay artículos registrados.</td>
+        </tr>
       }
     </tbody>
   </table>

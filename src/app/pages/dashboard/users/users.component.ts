@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UsersApiService } from './services/api/users-api.service';
@@ -15,7 +15,7 @@ import { DataService } from '../../../core/services/data/data.service';
 
 @Component({
   selector: 'app-users',
-  imports: [CommonModule, ReactiveFormsModule, UsersFormComponent, ButtonAddComponent, Dialog, UsersTableComponent, UsersCredentialsComponent, UsersDeleteComponent, UsersApproverComponent],
+  imports: [ReactiveFormsModule, UsersFormComponent, ButtonAddComponent, Dialog, UsersTableComponent, UsersCredentialsComponent, UsersDeleteComponent, UsersApproverComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
   standalone: true

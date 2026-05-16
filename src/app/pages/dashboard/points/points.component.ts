@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PointsCardComponent } from "./points-card/points-card.component";
-import { CommonModule } from '@angular/common';
+
 import { Point } from './interfaces/point.interfaces';
 import { PointsService } from './services/api/points.service';
 import { CalendarModule } from 'primeng/calendar';
@@ -14,7 +14,7 @@ import { ButtonAddComponent } from "../../../shared/button-add/button-add.compon
 
 @Component({
   selector: 'app-points',
-  imports: [PointsCardComponent, CommonModule, CalendarModule, ReactiveFormsModule, FormsModule, RadioButtonModule, Dialog, PointAddEditComponent, ButtonAddComponent],
+  imports: [PointsCardComponent, CalendarModule, ReactiveFormsModule, FormsModule, RadioButtonModule, Dialog, PointAddEditComponent, ButtonAddComponent],
   templateUrl: './points.component.html',
   styleUrl: './points.component.css',
   standalone: true

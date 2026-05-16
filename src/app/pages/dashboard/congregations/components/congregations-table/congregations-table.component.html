@@ -3,7 +3,7 @@
     <div class="overflow-hidden rounded-xl border border-green-800 shadow">
       <table
         class="min-w-full divide-y divide-green-800 bg-green-900 text-white"
-      >
+        >
         <thead class="bg-green-800">
           <tr>
             <th class="px-4 py-3 text-left text-sm font-semibold">ID</th>
@@ -15,25 +15,27 @@
           </tr>
         </thead>
         <tbody class="divide-y divide-green-700">
-          <tr *ngFor="let congregation of congregations">
-            <td class="px-4 py-2 text-sm">{{ congregation.id }}</td>
-            <td class="px-4 py-2 text-sm">{{ congregation.name }}</td>
-            <td class="px-4 py-2 text-sm">{{ congregation.number }}</td>
-            <td class="px-4 py-2 space-x-2 text-center">
-              <button
-                class="bg-green-600 hover:bg-green-500 hover:cursor-pointer text-white text-xs sm:text-sm font-semibold py-1 px-2 rounded"
-                (click)="onEdit(congregation)"
-              >
-                <i class="pi pi-user-edit" title="Editar"></i>
-              </button>
-              <button
-               (click)="onDelete(congregation.id)"
-                class="bg-red-600 hover:bg-red-500 hover:cursor-pointer text-white text-xs sm:text-sm font-semibold py-1 px-2 rounded"
-              >
-                <i class="pi pi-trash" title="Borrar"></i>
-              </button>
-            </td>
-          </tr>
+          @for (congregation of congregations; track congregation) {
+            <tr>
+              <td class="px-4 py-2 text-sm">{{ congregation.id }}</td>
+              <td class="px-4 py-2 text-sm">{{ congregation.name }}</td>
+              <td class="px-4 py-2 text-sm">{{ congregation.number }}</td>
+              <td class="px-4 py-2 space-x-2 text-center">
+                <button
+                  class="bg-green-600 hover:bg-green-500 hover:cursor-pointer text-white text-xs sm:text-sm font-semibold py-1 px-2 rounded"
+                  (click)="onEdit(congregation)"
+                  >
+                  <i class="pi pi-user-edit" title="Editar"></i>
+                </button>
+                <button
+                  (click)="onDelete(congregation.id)"
+                  class="bg-red-600 hover:bg-red-500 hover:cursor-pointer text-white text-xs sm:text-sm font-semibold py-1 px-2 rounded"
+                  >
+                  <i class="pi pi-trash" title="Borrar"></i>
+                </button>
+              </td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>

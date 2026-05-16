@@ -8,28 +8,38 @@
       type="text"
       formControlName="name"
       class="w-full p-2 rounded border border-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-800 text-white"
-    />
-    <div *ngIf="name?.invalid && name?.touched" class="text-red-300 text-sm mt-1">
-      <div *ngIf="name?.errors?.['required']">El campo 'title' no debe estar vacío.</div>
-      <div *ngIf="name?.errors?.['minlength']">El nombre debe tener al menos 2 caracteres.</div>
+      />
+      @if (name?.invalid && name?.touched) {
+        <div class="text-red-300 text-sm mt-1">
+          @if (name?.errors?.['required']) {
+            <div>El campo 'title' no debe estar vacío.</div>
+          }
+          @if (name?.errors?.['minlength']) {
+            <div>El nombre debe tener al menos 2 caracteres.</div>
+          }
+        </div>
+      }
     </div>
-  </div>
 
-  <div class="mb-4">
-    <label class="block text-green-100 mb-1" for="number">Número</label>
-    <input
-      id="number"
-      type="text"
-      formControlName="number"
-      class="w-full p-2 rounded border border-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-800 text-white"
-    />
-    <div *ngIf="number?.invalid && number?.touched" class="text-red-300 text-sm mt-1">
-      <div *ngIf="number?.errors?.['required']">El campo 'number' no debe estar vacío.</div>
-    </div>
-  </div>
+    <div class="mb-4">
+      <label class="block text-green-100 mb-1" for="number">Número</label>
+      <input
+        id="number"
+        type="text"
+        formControlName="number"
+        class="w-full p-2 rounded border border-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-800 text-white"
+        />
+        @if (number?.invalid && number?.touched) {
+          <div class="text-red-300 text-sm mt-1">
+            @if (number?.errors?.['required']) {
+              <div>El campo 'number' no debe estar vacío.</div>
+            }
+          </div>
+        }
+      </div>
 
-  <button type="submit" class="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded shadow">
-    Guardar
-  </button>
-</form>
+      <button type="submit" class="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded shadow">
+        Guardar
+      </button>
+    </form>
 

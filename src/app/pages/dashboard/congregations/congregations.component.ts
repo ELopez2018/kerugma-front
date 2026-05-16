@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Congregation } from './interfaces/congregation.interface';
-import { CommonModule } from '@angular/common';
+
 import { CongregationsApiService } from './services/api/congregations.service';
 import { ToastModule } from 'primeng/toast';
 import { DataService } from '../../../core/services/data/data.service';
@@ -15,7 +15,7 @@ import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-congregations',
-  imports: [CommonModule, ReactiveFormsModule, ToastModule, Dialog, CongregationsFormAddEditComponent, CongregationsTableComponent, ButtonAddComponent],
+  imports: [ReactiveFormsModule, ToastModule, Dialog, CongregationsFormAddEditComponent, CongregationsTableComponent, ButtonAddComponent],
   templateUrl: './congregations.component.html',
   styleUrl: './congregations.component.css',
   standalone: true
